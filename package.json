@@ -1,0 +1,19 @@
+{
+  "name": "backend-balanso",
+  "version": "1.0.0",
+  "description": "* Console.log del estado inicial del usuario\r * Cada método deja un console.log posterior a los cambios realizados",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/augustobalanso/backend-balanso.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/augustobalanso/backend-balanso/issues"
+  },
+  "homepage": "https://github.com/augustobalanso/backend-balanso#readme"
+}
