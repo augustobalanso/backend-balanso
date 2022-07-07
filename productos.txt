@@ -1,1 +1,1 @@
-[{"title":"producto3","price":4500,"thumbnail":"./img/03.jpg","id":1}]
+[]

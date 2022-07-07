@@ -1,4 +1,4 @@
-const fs = require('fs')
+const fs = require('fs');
 
 class Contenedor {
     constructor (title, price, thumbnail) {
@@ -8,37 +8,31 @@ class Contenedor {
     }
 
     async save(object) { 
-
-        try {
-
-            const productosFetch = JSON.parse(await fs.promises.readFile('./productos.txt'))
-
-            async function waitForArray(){
-                if(await productosFetch.length === 0){
-                    object.id = 1
-                } else {
-                    object.id = productosFetch[productosFetch.length - 1].id + 1
-                }
-                await productosFetch.push(object)
-                await fs.promises.writeFile(('./productos.txt'), JSON.stringify(productosFetch))
-                console.log('ID de objeto agregado: ',object.id)
-            }
-
-            async function waitFile(fn){
-                return new Promise((resolve) => {setTimeout(() => resolve(fn()), 1000)})
-            }
-
-            setTimeout(() => {
-                waitFile(waitForArray)
-            }, 500);
-
-        }
-
-        catch (err) {
-            console.log('error: ', err)
-        }
-
         
+        try {
+            const productsOnFile = fs.promises.readFile('./productos.txt')
+                .then((res) => {                
+                    const parsedRes = JSON.parse(res);
+                    if(parsedRes.length == 0){
+                        object.id = 1
+                    } else {
+                        object.id = parsedRes[parsedRes.length - 1].id + 1
+                    }
+
+                    return parsedRes
+                }
+                )
+            console.log("Archivo:", await productsOnFile);
+
+            const newArrayToUpload = await productsOnFile
+            newArrayToUpload.push(object)
+            console.log(newArrayToUpload)
+            fs.writeFileSync('./productos.txt', JSON.stringify(newArrayToUpload))
+            }
+
+            catch(err){
+                console.log('error: ' , err)
+            }
     }
 
     getById(idFilter){
