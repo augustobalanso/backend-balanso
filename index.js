@@ -45,7 +45,7 @@ class Contenedor {
         // CHECKS IF ID EXISTS, ERROR IF NOT
         if(searchableArray.some(element => element.id === idFilter)){
             const filteredObject = searchableArray.filter(element => element.id == idFilter)
-            console.log(filteredObject)
+            console.log('objecto encontrado: ',filteredObject)
         } else {
             console.log(`Error de filtrado: id ${idFilter} no encontrado`)
         }
