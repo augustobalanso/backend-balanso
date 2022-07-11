@@ -1,5 +1,9 @@
 # backend-balanso
 
+## 3er Desafio - Subida de proyecto a GLITCH
+
+* Se utiliza DOM para despliegue de productos.
+
 ## 2do Desafio - Manejo de archivos (async await)
 
 ## 1er Desafio - Clases
