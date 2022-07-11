@@ -1,4 +1,8 @@
 const fs = require('fs');
+const express = require('express')
+const app = express()
+
+const PORT = process.env.PORT || 8080
 
 class Contenedor {
     constructor (fileName) {
@@ -53,7 +57,7 @@ class Contenedor {
 
     async getAll(){
         const readArray = JSON.parse(await fs.promises.readFile(this.fileName))
-        return console.log('respuesta de getAll(): ', readArray)
+        return readArray
     }
 
     async deleteById(idDelete){
@@ -73,11 +77,46 @@ class Contenedor {
         await fs.promises.writeFile(this.fileName,JSON.stringify([]))
         console.log('Base de datos eliminada')
     }
+  
+    async getRandomProduct(){
+        
+    }
+  
 }
 
 const initPrueba = new Contenedor('./productos.txt')
 
-initPrueba.save([{"title":"producto1","price":2000,"thumbnail":"./img/01.jpg"},{"title":"producto2","price":3000,"thumbnail":"./img/02.jpg"},{"title":"producto3","price":4500,"thumbnail":"./img/03.jpg"}])
+app.get('/', (req,res) => {
+    res.send(
+      '<a href="./productos">Productos</a><br><a href="./productoRandom">Producto aleatorio</a>'
+    )
+})
+
+app.get('/productos', async (req,res) => {
+    res.send({mensaje: await initPrueba.getAll() })
+})
+
+app.get('/productoRandom', async (req,res) => {
+  
+    const productsFetch = JSON.parse(await fs.promises.readFile('./productos.txt'))
+
+    function getRandomInt(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+      
+    const randomProduct = () => {
+      return productsFetch[(getRandomInt(1,productsFetch.length))-1]
+    }
+  
+    res.send({mensaje: randomProduct()}     
+    )
+})
+
+const server = app.listen(PORT, () => {
+    console.log(`Servidor http escuchando en el puerto ${server.address().port}`)    
+})
+
+// initPrueba.save([{"title":"producto1","price":2000,"thumbnail":"./img/01.jpg"},{"title":"producto2","price":3000,"thumbnail":"./img/02.jpg"},{"title":"producto3","price":4500,"thumbnail":"./img/03.jpg"}])
 // initPrueba.getById(1)
 // initPrueba.getAll()
 // initPrueba.deleteById(3)

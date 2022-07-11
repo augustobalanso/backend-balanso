@@ -2,8 +2,8 @@
   "name": "backend-balanso",
   "version": "1.0.0",
   "description": "* Console.log del estado inicial del usuario\r * Cada método deja un console.log posterior a los cambios realizados",
-  "main": "index.js",
   "scripts": {
+    "dev": "nodemon server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -15,5 +15,11 @@
   "bugs": {
     "url": "https://github.com/augustobalanso/backend-balanso/issues"
   },
-  "homepage": "https://github.com/augustobalanso/backend-balanso#readme"
+  "homepage": "https://github.com/augustobalanso/backend-balanso#readme",
+  "devDependencies": {
+    "nodemon": "^2.0.19"
+  },
+  "dependencies": {
+    "express": "^4.18.1"
+  }
 }
