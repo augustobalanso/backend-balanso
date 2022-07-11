@@ -1,120 +1,178 @@
-const fs = require('fs');
-const express = require('express')
-const app = express()
+const fs = require("fs");
+const express = require("express");
+const app = express();
 
-const PORT = process.env.PORT || 8080
+const PORT = process.env.PORT || 8080;
 
 class Contenedor {
-    constructor (fileName) {
-        this.fileName = fileName
+  constructor(fileName) {
+    this.fileName = fileName;
+  }
+
+  async save(array) {
+    try {
+      const productsFetch = JSON.parse(
+        await fs.promises.readFile(this.fileName, "utf-8")
+      );
+      let id = 1;
+
+      if (productsFetch.length === 0) {
+        array.forEach((element) => {
+          element.id = id;
+          id++;
+        });
+      } else {
+        array.forEach((element) => {
+          element.id = productsFetch[productsFetch.length - 1].id + id;
+          id++;
+        });
+      }
+
+      array.forEach((el) => {
+        productsFetch.push(el);
+      });
+
+      await fs.promises.writeFile(
+        "./productos.txt",
+        JSON.stringify(productsFetch)
+      );
+      console.log("Agregando los sig. objetos al archivo...");
+      console.log(array);
+      console.log("Archivo guardado!");
+    } catch (err) {
+      console.log("error: ", err);
     }
+  }
 
+  async getById(idFilter) {
+    const searchableArray = JSON.parse(
+      await fs.promises.readFile(this.fileName)
+    );
 
-    async save(array) { 
-        
-        try {
-            const productsFetch = JSON.parse(await fs.promises.readFile(this.fileName,"utf-8"))
-            let id = 1
-
-            if(productsFetch.length === 0){
-                array.forEach(element => { 
-                    element.id = id
-                    id++
-                });
-            } else {
-                array.forEach(element => {
-                    element.id = productsFetch[productsFetch.length-1].id + id
-                    id++
-                })
-            }
-
-            array.forEach((el) => {
-                productsFetch.push(el)
-            })
-
-            await fs.promises.writeFile('./productos.txt', JSON.stringify(productsFetch))
-            console.log('Agregando los sig. objetos al archivo...')
-            console.log(array)
-            console.log('Archivo guardado!')
-        }
-
-        catch(err){
-            console.log('error: ' , err)
-        }
+    // CHECKS IF ID EXISTS, ERROR IF NOT
+    if (searchableArray.some((element) => element.id === idFilter)) {
+      const filteredObject = searchableArray.filter(
+        (element) => element.id == idFilter
+      );
+      console.log("objecto encontrado: ", filteredObject);
+    } else {
+      console.log(`Error de filtrado: id ${idFilter} no encontrado`);
     }
+  }
 
-    async getById(idFilter){
-        const searchableArray = JSON.parse(await fs.promises.readFile(this.fileName))
+  async getAll() {
+    const readArray = JSON.parse(await fs.promises.readFile(this.fileName));
+    return readArray;
+  }
 
-        // CHECKS IF ID EXISTS, ERROR IF NOT
-        if(searchableArray.some(element => element.id === idFilter)){
-            const filteredObject = searchableArray.filter(element => element.id == idFilter)
-            console.log('objecto encontrado: ',filteredObject)
-        } else {
-            console.log(`Error de filtrado: id ${idFilter} no encontrado`)
-        }
+  async deleteById(idDelete) {
+    const searchableArray = JSON.parse(
+      await fs.promises.readFile(this.fileName)
+    );
+    if (searchableArray.some((element) => element.id === idDelete)) {
+      const filteredObject = searchableArray.filter(
+        (element) => element.id != idDelete
+      );
+      console.log("Borrando ID...");
+      await fs.promises.writeFile(
+        this.fileName,
+        JSON.stringify(filteredObject)
+      );
+    } else {
+      return console.log(`Error de borrado: id ${idDelete} no encontrado`);
     }
+  }
 
-    async getAll(){
-        const readArray = JSON.parse(await fs.promises.readFile(this.fileName))
-        return readArray
-    }
+  async deleteAll() {
+    await fs.promises.writeFile(this.fileName, JSON.stringify([]));
+    console.log("Base de datos eliminada");
+  }
 
-    async deleteById(idDelete){
-
-        const searchableArray = JSON.parse(await fs.promises.readFile(this.fileName))
-        if(searchableArray.some(element => element.id === idDelete)){
-            const filteredObject = searchableArray.filter(element => element.id != idDelete)
-            console.log('Borrando ID...')
-            await fs.promises.writeFile(this.fileName,JSON.stringify(filteredObject)) 
-        } else {
-            return (console.log(`Error de borrado: id ${idDelete} no encontrado`))
-        }
-
-    }
-
-    async deleteAll(){
-        await fs.promises.writeFile(this.fileName,JSON.stringify([]))
-        console.log('Base de datos eliminada')
-    }
-  
-    async getRandomProduct(){
-        
-    }
-  
+  async getRandomProduct() {}
 }
 
-const initPrueba = new Contenedor('./productos.txt')
+const initPrueba = new Contenedor("./productos.txt");
 
-app.get('/', (req,res) => {
-    res.send(
-      '<a href="./productos">Productos</a><br><a href="./productoRandom">Producto aleatorio</a>'
-    )
-})
+app.get("/", (req, res) => {
+  res.send(
+    '<a href="./productos">Productos</a><br><a href="./productoRandom">Producto aleatorio</a>'
+  );
+});
 
-app.get('/productos', async (req,res) => {
-    res.send({mensaje: await initPrueba.getAll() })
-})
-
-app.get('/productoRandom', async (req,res) => {
+app.get("/productos", async (req, res) => {
+  const productsFetch = JSON.parse(
+    await fs.promises.readFile("./productos.txt")
+  );
+  let productsFetchTable = []
   
-    const productsFetch = JSON.parse(await fs.promises.readFile('./productos.txt'))
+  await Promise.all(productsFetch.map(async(el) => {
+    productsFetchTable.push(`
+        <tr>
+            <td>${await el.title}</td>
+            <td>${await el.price}</td>
+            <td>${await el.thumbnail}</td>
+            <td>${await el.id}</td>
+        </tr>
+    `)
+  }))
 
-    function getRandomInt(min, max) {
+  res.send(
+    `<table>
+      <tr>
+        <th>Producto</th>
+        <th>Precio</th>
+        <th>Imagen</th>
+        <th>ID</th>
+      </tr>
+      ${productsFetchTable.map((el) => {
+        return el
+      })}
+    </table>
+    <br>
+    <a href='../'>Volver</a>`
+  );
+});
+
+app.get("/productoRandom", async (req, res) => {
+  const productsFetch = JSON.parse(
+    await fs.promises.readFile("./productos.txt")
+  );
+
+  function getRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
-    }
-      
-    const randomProduct = () => {
-      return productsFetch[(getRandomInt(1,productsFetch.length))-1]
-    }
+  }
+
+  const randomProduct = () => {
+    return productsFetch[getRandomInt(1, productsFetch.length) - 1];
+  };
+
+  const fetchedProduct = randomProduct()
   
-    res.send({mensaje: randomProduct()}     
-    )
-})
+  res.send(
+    `
+    <table>
+      <tr>
+        <th>Producto</th>
+        <th>Precio</th>
+        <th>Imagen</th>
+        <th>ID</th>
+      </tr>
+      <tr>
+        <td>${fetchedProduct.title}</td>
+        <td>${fetchedProduct.price}</td>
+        <td>${fetchedProduct.thumbnail}</td>
+        <td>${fetchedProduct.id}</td>
+      </tr>
+    </table>
+    <br>
+    <a href='../'>Volver</a>\
+    <a href='/productoRandom'>Reintentar</a>
+    `);
+});
 
 const server = app.listen(PORT, () => {
-    console.log(`Servidor http escuchando en el puerto ${server.address().port}`)    
-})
+  console.log(`Servidor http escuchando en el puerto ${server.address().port}`);
+});
 
 // initPrueba.save([{"title":"producto1","price":2000,"thumbnail":"./img/01.jpg"},{"title":"producto2","price":3000,"thumbnail":"./img/02.jpg"},{"title":"producto3","price":4500,"thumbnail":"./img/03.jpg"}])
 // initPrueba.getById(1)
