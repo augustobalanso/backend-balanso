@@ -1,15 +1,67 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <script src="./index.js"></script>
-</head>
-<body>
-    
+<html lang="es">
 
+<head>
+  <meta charset="UTF-8">
+  <title>Subir Archivo</title>
+  <style>
+    h1 {
+      color: blue;
+      font-size: 20px;
+      text-align: center;
+    }
+
+    input {
+      float: left;
+      width: 100%;
+      margin-bottom: 10px;
+    }
+
+    form {
+      width: 50%;
+      margin-left: 25%;
+    }
+
+    form .submit {
+      background-color: greenyellow;
+    }
+
+    label {
+      font-weight: bold;
+    }
+  </style>
+</head>
+
+<body>
+  <form action="/api/productos" method="GET">
+    <input type="submit" value="traer todos los productos" class="submit" />
+  </form>
+
+  <form action="/api/productos" method="GET">
+    <input type="number" name="id" id="id" placeholder="id a buscar">
+    <input type="submit" value="buscar por id" class="submit" />
+  </form>
+
+  <form action="/api/productos" method="POST">
+    <input type="text" name="title" id="title" placeholder="titulo">
+    <input type="text" name="price" id="price" placeholder="precio">
+    <input type="text" name="img" id="img" placeholder="img">
+    <input type="submit" value="subir producto" class="submit" />
+  </form>
+
+  <form action="/api/productos" method="PUT">
+    <input type="number" name="id" id="id" placeholder="id a editar">
+    <input type="text" name="title" id="title" placeholder="titulo">
+    <input type="text" name="price" id="price" placeholder="precio">
+    <input type="text" name="thumbnail" id="thumbnail" placeholder="img">
+    <input type="submit" value="editar producto" class="submit" />
+  </form>
+
+  <form action="/api/productos/borrar" method="DELETE">
+    <input type="number" name="iddel" id="iddel" placeholder="id a borrar">
+    <input type="submit" value="borrar por id" class="submit" />
+  </form>
 
 </body>
+
 </html>

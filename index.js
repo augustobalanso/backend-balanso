@@ -1,181 +1,50 @@
-const fs = require("fs");
 const express = require("express");
+const Contenedor = require("./utils/contenedor");
+const { Router } = express
+
 const app = express();
+const router = Router()
+app.use(express.json())
+app.use(express.urlencoded({ extended : true }))
+app.use('/api/productos', router);
+app.use('/', (req, res) => {
+    res.sendFile(__dirname + "/index.html")
+})
+const contenedor = new Contenedor("./productos.txt")
+
+router.get('/', async (req,res) => {
+    
+    if((req.query.id && req.query.title && req.query.thumbnail && req.query.price)){
+        res.json (await contenedor.UpdateById(Number(req.query.id), {title: req.query.title , price: req.query.price, thumbnail: req.query.thumbnail}))
+    } else if (req.query.id){
+        res.json ( await contenedor.getById(Number(req.query.id)))
+    } else {
+        res.send( await contenedor.getAll())
+    }
+})
+
+router.get('/:id', async (req, res) => {
+    if (req.query.iddel){
+        res.json (await contenedor.deleteById(Number(req.query.iddel)))
+    } else {
+        res.send ( await contenedor.getById(Number(req.params.id)))
+    }
+
+}) 
+
+router.post('/', async (req,res) => {
+    res.send (await contenedor.save([req.body]))
+})
+
+router.put('/:id', async (req,res) => {
+    res.json (await contenedor.UpdateById(Number(req.params.id), req.body))
+})
+
+router.delete('/:id', async (req, res) => {
+    res.json (await contenedor.deleteById(Number(req.params.id)))
+})
 
 const PORT = process.env.PORT || 8080;
-
-class Contenedor {
-  constructor(fileName) {
-    this.fileName = fileName;
-  }
-
-  async save(array) {
-    try {
-      const productsFetch = JSON.parse(
-        await fs.promises.readFile(this.fileName, "utf-8")
-      );
-      let id = 1;
-
-      if (productsFetch.length === 0) {
-        array.forEach((element) => {
-          element.id = id;
-          id++;
-        });
-      } else {
-        array.forEach((element) => {
-          element.id = productsFetch[productsFetch.length - 1].id + id;
-          id++;
-        });
-      }
-
-      array.forEach((el) => {
-        productsFetch.push(el);
-      });
-
-      await fs.promises.writeFile(
-        "./productos.txt",
-        JSON.stringify(productsFetch)
-      );
-      console.log("Agregando los sig. objetos al archivo...");
-      console.log(array);
-      console.log("Archivo guardado!");
-    } catch (err) {
-      console.log("error: ", err);
-    }
-  }
-
-  async getById(idFilter) {
-    const searchableArray = JSON.parse(
-      await fs.promises.readFile(this.fileName)
-    );
-
-    // CHECKS IF ID EXISTS, ERROR IF NOT
-    if (searchableArray.some((element) => element.id === idFilter)) {
-      const filteredObject = searchableArray.filter(
-        (element) => element.id == idFilter
-      );
-      console.log("objecto encontrado: ", filteredObject);
-    } else {
-      console.log(`Error de filtrado: id ${idFilter} no encontrado`);
-    }
-  }
-
-  async getAll() {
-    const readArray = JSON.parse(await fs.promises.readFile(this.fileName));
-    return readArray;
-  }
-
-  async deleteById(idDelete) {
-    const searchableArray = JSON.parse(
-      await fs.promises.readFile(this.fileName)
-    );
-    if (searchableArray.some((element) => element.id === idDelete)) {
-      const filteredObject = searchableArray.filter(
-        (element) => element.id != idDelete
-      );
-      console.log("Borrando ID...");
-      await fs.promises.writeFile(
-        this.fileName,
-        JSON.stringify(filteredObject)
-      );
-    } else {
-      return console.log(`Error de borrado: id ${idDelete} no encontrado`);
-    }
-  }
-
-  async deleteAll() {
-    await fs.promises.writeFile(this.fileName, JSON.stringify([]));
-    console.log("Base de datos eliminada");
-  }
-
-  async getRandomProduct() {}
-}
-
-const initPrueba = new Contenedor("./productos.txt");
-
-app.get("/", (req, res) => {
-  res.send(
-    '<a href="./productos">Productos</a><br><a href="./productoRandom">Producto aleatorio</a>'
-  );
-});
-
-app.get("/productos", async (req, res) => {
-  const productsFetch = JSON.parse(
-    await fs.promises.readFile("./productos.txt")
-  );
-  let productsFetchTable = []
-  
-  await Promise.all(productsFetch.map(async(el) => {
-    productsFetchTable.push(`
-        <tr>
-            <td>${await el.title}</td>
-            <td>${await el.price}</td>
-            <td>${await el.thumbnail}</td>
-            <td>${await el.id}</td>
-        </tr>
-    `)
-  }))
-
-  res.send(
-    `<table>
-      <tr>
-        <th>Producto</th>
-        <th>Precio</th>
-        <th>Imagen</th>
-        <th>ID</th>
-      </tr>
-      ${productsFetchTable.map((el) => {
-        return el
-      })}
-    </table>
-    <br>
-    <a href='../'>Volver</a>`
-  );
-});
-
-app.get("/productoRandom", async (req, res) => {
-  const productsFetch = JSON.parse(
-    await fs.promises.readFile("./productos.txt")
-  );
-
-  function getRandomInt(min, max) {
-    return Math.floor(Math.random() * (max - min + 1)) + min;
-  }
-
-  const randomProduct = () => {
-    return productsFetch[getRandomInt(1, productsFetch.length) - 1];
-  };
-
-  const fetchedProduct = randomProduct()
-  
-  res.send(
-    `
-    <table>
-      <tr>
-        <th>Producto</th>
-        <th>Precio</th>
-        <th>Imagen</th>
-        <th>ID</th>
-      </tr>
-      <tr>
-        <td>${fetchedProduct.title}</td>
-        <td>${fetchedProduct.price}</td>
-        <td>${fetchedProduct.thumbnail}</td>
-        <td>${fetchedProduct.id}</td>
-      </tr>
-    </table>
-    <br>
-    <a href='../'>Volver</a>\
-    <a href='/productoRandom'>Reintentar</a>
-    `);
-});
-
 const server = app.listen(PORT, () => {
   console.log(`Servidor http escuchando en el puerto ${server.address().port}`);
 });
-
-// initPrueba.save([{"title":"producto1","price":2000,"thumbnail":"./img/01.jpg"},{"title":"producto2","price":3000,"thumbnail":"./img/02.jpg"},{"title":"producto3","price":4500,"thumbnail":"./img/03.jpg"}])
-// initPrueba.getById(1)
-// initPrueba.getAll()
-// initPrueba.deleteById(3)
-// initPrueba.deleteAll()
