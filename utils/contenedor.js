@@ -118,8 +118,13 @@ class Contenedor {
                 return {error: `Producto con ID ${id} no encontrado, no se puede eliminar.`}
             } else {
                 const filteredData = fetchedData.filter(el => el.id !== id)
+                const deletedData = fetchedData.filter(el => el.id === id)
                 await fs.promises.writeFile(this.archivo,JSON.stringify(filteredData),'utf-8')
-                return `Producto con ID ${id} eliminado correctamente.`
+                return {
+                    success: true,
+                    msg:`Producto con ID ${id} eliminado correctamente.`,
+                    erasedProduct: deletedData
+                }
             }
         } catch(err) {
             return {error: err}

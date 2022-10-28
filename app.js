@@ -8,5 +8,8 @@ app.use(express.json())
 app.use(express.urlencoded({ extended : true }))
 
 app.use('/api/productos', indexRouter)
+app.use('/', (_req,res) => {
+    res.sendFile(__dirname + '/index.html')
+})
 
 module.exports = app;

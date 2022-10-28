@@ -13,9 +13,18 @@ router.get('/health', (_req,res) => {
     })
 })
 
-router.get('/', async (_req,res) => {
+// POR ALGÚN MOTIVO, HACER LA MISMA FUNCIONALIDAD BAJO QUERY DEMANDA ESTE CHOCLAZO ACÁ ABAJO
+router.get('/', async (req,res) => {
     try {
-        res.status(200).json(await contenedor.getAll())
+        if((req.query.id && req.query.title && req.query.thumbnail && req.query.price)){
+            res.status(200).json(await contenedor.UpdateById(Number(req.query.id), {title: req.query.title , price: req.query.price, thumbnail: req.query.thumbnail}))
+        } else if(req.query.id){
+            res.status(200).json(await contenedor.getById(Number(req.query.id)))
+        } else if(req.query.iddel) {
+            res.status(200).json(await contenedor.deleteById(Number(req.query.iddel)))
+        } else {
+            res.status(200).json(await contenedor.getAll())
+        }
     }
     catch {
         res.status(500).json(err)
