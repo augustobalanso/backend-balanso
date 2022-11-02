@@ -1,1 +1,1 @@
-[{"title":"Nike Air Jordan","price":40000,"thumbnail":"./static/img/nikeaj01.jpg","id":1},{"title":"Nike Air Max","price":48000,"thumbnail":"./static/img/nikeam02.jpg","id":2},{"title":"Nike Pegasus","price":60000,"thumbnail":"./static/img/nikepeg03.jpg","id":3}]
+[{"title":"producto1","price":3000,"thumbnail":"./img/01.jpg","id":1},{"title":"producto2","price":2000,"thumbnail":"./img/02.jpg","id":2},{"title":"producto3","price":4000,"thumbnail":"./img/03.jpg","id":3}]
