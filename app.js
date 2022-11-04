@@ -14,8 +14,9 @@ app.use(express.json())
 app.use(express.urlencoded({ extended : true }))
 app.use(logger('dev'))
 
-app.get('/', (_req,res) => {
-    res.render('index')
+app.use('/', indexRouter)
+app.get('/', (req,res) =>{
+    res.redirect('/productos')
 })
 
 app.use(errorMiddleware)
