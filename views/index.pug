@@ -1,0 +1,26 @@
+doctype html
+html(lang="en")
+    head
+        meta(charset="UTF-8")
+        meta(http-equiv="X-UA-Compatible", content="IE=edge")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        title Document
+    body 
+        h1 Formulario de carga
+        form(action="/productos", method="post")
+            label(for="title") Nombre de Producto:
+            br
+            input(type="text", name="title")
+            br
+            label(for="price") Precio:
+            br
+            input(type="number", name="price")
+            br
+            label(for="thumbnail") URL imagen:
+            br
+            input(type="text", name="thumbnail")
+            br
+            br
+            input(type="submit", value="Enviar")
+        br
+        a(href="/productos/lista") Ver productos
