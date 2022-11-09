@@ -41,21 +41,11 @@ class Contenedor {
             if(object.length == undefined){
                 fetchedData.push(object)
                 await fs.promises.writeFile(this.archivo,JSON.stringify(fetchedData),'utf-8')
-                return {
-                    success: true,
-                    opType: 'singleproduct',
-                    data: object
-                }
             } else {
                 object.forEach((el) => {
                     fetchedData.push(el)
                 })
                 await fs.promises.writeFile(this.archivo,JSON.stringify(fetchedData),'utf-8')
-                return {
-                    success: true,
-                    opType: 'multiproduct',
-                    data: object
-                }
             }
         } catch(err) {
             return {
