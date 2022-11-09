@@ -15,17 +15,17 @@ router.get('/lista', async (_req, res) => {
     }
 })
 
-router.post('/', async (req,res) => {
-    console.log(req.body)
-    try {
-        res.status(200).json(await contenedor.save(req.body))
-    }
-    catch(error){
-        errorMiddleware(error,req,res)
-    }
-    finally{
-        res.status(200).redirect('/productos')
-    }
-})
+// router.post('/', async (req,res) => {
+//     console.log(req.body)
+//     try {
+//         res.status(200).json(await contenedor.save(req.body))
+//     }
+//     catch(error){
+//         errorMiddleware(error,req,res)
+//     }
+//     finally{
+//         res.status(200).redirect('/productos')
+//     }
+// })
 
 module.exports = router
