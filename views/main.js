@@ -3,6 +3,13 @@ const socket = io("https://backend-balanso-2dacursada-production.up.railway.app/
 let messages = []
 let products = []
 
+const killSubmitProdForm = document.querySelector('#buttonSubmitProd').addEventListener("click", (e) => {
+    e.preventDefault()
+})
+const killSubmitChatForm = document.querySelector('#buttonSubmitChat').addEventListener("click", (e) => {
+    e.preventDefault()
+})
+
 function sendProduct(){
     socket.emit('NEW_PRODUCT_TO_SERVER')
 }
