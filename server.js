@@ -1,8 +1,10 @@
-const { io } = require('./app')
+const { io, http } = require('./app')
 const fs = require('fs')
 
 const messages = JSON.parse(fs.readFileSync('./chatHistory.txt','utf-8'))
-const PORT = process.env.PORT || 8080;
+const PORT = process.env.PORT;
+
+http.listen(PORT, () => console.info(`Server up and running on port ${PORT}`));
 
 io.on('connection', (socket) => {
     const products = JSON.parse(fs.readFileSync('./productos.txt','utf-8'))
