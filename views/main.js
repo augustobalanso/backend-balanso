@@ -18,9 +18,8 @@ async function sendProduct(){
         price: document.querySelector('#prodPrice').value,
         thumbnail: document.querySelector('#prodThumnail').value
     }
-
-    await contenedor.save(builtObject)    
-    socket.emit('NEW_PRODUCT_TO_SERVER')
+  
+    socket.emit('NEW_PRODUCT_TO_SERVER', builtObject)
 }
 
 function sendMessage(){

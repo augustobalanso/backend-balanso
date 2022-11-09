@@ -1,5 +1,6 @@
 const { io, http } = require('./app')
 const fs = require('fs')
+const contenedor = require('./storage/initClassProducts')
 
 const messages = JSON.parse(fs.readFileSync('./chatHistory.txt','utf-8'))
 const PORT = process.env.PORT;
@@ -16,7 +17,8 @@ io.on('connection', (socket) => {
         io.sockets.emit('NEW_MESSAGE_TO_SERVER', data)
         fs.writeFileSync('./chatHistory.txt', JSON.stringify(messages), 'utf-8')
     })
-    socket.on('NEW_PRODUCTS_TO_SERVER', () => {
+    socket.on('NEW_PRODUCTS_TO_SERVER', async (data) => {
         io.sockets.emit('NEW_PRODUCTS_TO_SERVER', products)
+        await contenedor.save(data)
     })
 })
