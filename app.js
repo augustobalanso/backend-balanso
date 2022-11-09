@@ -1,6 +1,6 @@
 const express = require('express');
 const {Server: HttpServer} = require('http');
-const {Server: IoServer} = require('socket.io')();
+const {Server: IoServer} = require('socket.io');
 const indexRouter = require('./src/routes/index');
 const errorMiddleware = require('./src/middlewares/errorHandler');
 
