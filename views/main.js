@@ -1,4 +1,4 @@
-const socket = io("https://ruperts-brother.herokuapp.com/")
+const socket = io("https://backend-balanso-2dacursada-production.up.railway.app/")
 
 let messages = []
 let products = []
