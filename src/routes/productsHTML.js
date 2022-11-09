@@ -18,7 +18,7 @@ router.get('/lista', async (_req, res) => {
 router.post('/', async (req,res) => {
     console.log(req.body)
     try {
-        await contenedor.save(req.body)
+        res.status(200).json(await contenedor.save(req.body))
         res.status(200).redirect('/productos')
     }
     catch(error){
