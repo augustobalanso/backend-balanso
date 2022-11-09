@@ -18,7 +18,8 @@ io.on('connection', (socket) => {
         fs.writeFileSync('./chatHistory.txt', JSON.stringify(messages), 'utf-8')
     })
     socket.on('NEW_PRODUCTS_TO_SERVER', async (data) => {
-        io.sockets.emit('NEW_PRODUCTS_TO_SERVER', products)
+        console.log(data)
+        io.sockets.emit('NEW_PRODUCTS_TO_SERVER', data)
         await contenedor.save(data)
     })
 })
