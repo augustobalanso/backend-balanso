@@ -1,4 +1,6 @@
 const express = require('express')
+const {Server: HttpServer} = require('http')
+const {Server: IoServer} = require('socket.io')
 const indexRouter = require('./src/routes/index')
 const errorMiddleware = require('./src/middlewares/errorHandler')
 const logger = require('morgan')
@@ -12,6 +14,7 @@ app.set('view engine', 'pug')
 
 app.use(express.json())
 app.use(express.urlencoded({ extended : true }))
+app.use(express.static(__dirname + '/views'));
 app.use(logger('dev'))
 
 app.use('/', indexRouter)
@@ -21,4 +24,10 @@ app.get('/', (req,res) =>{
 
 app.use(errorMiddleware)
 
-module.exports = app;
+const http = new HttpServer(app)
+const io = new IoServer(http)
+
+module.exports = {
+    http: http,
+    io: io
+};
