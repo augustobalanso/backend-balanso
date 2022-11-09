@@ -1,6 +1,6 @@
 const express = require('express');
 const {Server: HttpServer} = require('http');
-const {Server: IoServer} = require('socket.io');
+const {Server: IoServer} = require('socket.io')();
 const indexRouter = require('./src/routes/index');
 const errorMiddleware = require('./src/middlewares/errorHandler');
 
@@ -24,7 +24,11 @@ app.get('/', (req,res) =>{
 app.use(errorMiddleware)
 
 const http = new HttpServer(app)
-const io = new IoServer(http)
+const io = new IoServer(http, {
+    cors: {
+        origin: "https://backend-balanso-2dacursada-production.up.railway.app/productos"
+    }
+})
 
 module.exports = {
     http: http,
