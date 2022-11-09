@@ -17,7 +17,7 @@ async function sendProduct(){
         price: document.querySelector('#prodPrice').value,
         thumbnail: document.querySelector('#prodThumnail').value
     }
-  
+    console.log(builtObject)
     socket.emit('NEW_PRODUCT_TO_SERVER', builtObject)
 }
 
