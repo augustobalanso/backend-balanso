@@ -1,5 +1,4 @@
 const socket = io("https://backend-balanso-2dacursada-production.up.railway.app/")
-const contenedor = require('../storage/initClassProducts')
 
 let messages = []
 let products = []
