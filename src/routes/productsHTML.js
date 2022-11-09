@@ -1,7 +1,6 @@
 const router = require('express').Router()
 const errorMiddleware = require('../middlewares/errorHandler')
 const contenedor = require('../../storage/initClassProducts')
-var _ = require('lodash')
 
 router.get('/', async (_req, res) => {
     res.render('index')
@@ -12,7 +11,7 @@ router.get('/lista', async (_req, res) => {
         res.render('productos', { products: await contenedor.getAll()})
     }
     catch(error){
-        errorMiddleware(error,req,res)
+        errorMiddleware(error,_req,res)
     }
 })
 
