@@ -10,7 +10,7 @@ function sendProduct(){
 function sendMessage(){
     const message = document.querySelector('#submit-message').value
     const username = document.querySelector('#submit-username').value
-    socket.emit('NEW_MESSAGE_TO_SERVER', {username: username ,message: message})
+    socket.emit('NEW_MESSAGE_TO_SERVER', {username: username ,message: message,timestamp: new Date().toLocaleString()})
 }
  
 function updateProducts(data){
@@ -18,8 +18,8 @@ function updateProducts(data){
     data.forEach(i => {
         productsToHtml += `<tr>
         <td>${i.title}</td>
-        <td>${i.price}</td>
-        <td><img src="${i.thumbnail}" /></td>
+        <td>$${i.price}</td>
+        <td><img src="${i.thumbnail}" alt="${i.thumbnail}" /></td>
         </tr>`
     })
     document.querySelector('#productsPlaceholder').innerHTML = productsToHtml
@@ -28,7 +28,7 @@ function updateProducts(data){
 function updateMessages(data){
     let messagesToHtml = ''
     data.forEach(i => {
-        messagesToHtml += `<li><b>${i.username}</b>: <i>${i.message}</i></li>`
+        messagesToHtml += `<li>[${i.timestamp}] <b>${i.username}</b>: <i>${i.message}</i></li>`
     })
     document.querySelector('#chatPlaceholder').innerHTML = messagesToHtml
 }
