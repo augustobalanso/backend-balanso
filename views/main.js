@@ -11,9 +11,15 @@ document.querySelector('#buttonSubmitChat').addEventListener("click", (e) => {
     e.preventDefault()
 })
 
-async function sendProduct(obj){
-    console.log(obj)
-    // await contenedor.save()    
+async function sendProduct(){
+    
+    const builtObject = { 
+        title: document.querySelector('#prodTitle').value,
+        price: document.querySelector('#prodPrice').value,
+        thumbnail: document.querySelector('#prodThumnail').value
+    }
+
+    await contenedor.save(builtObject)    
     socket.emit('NEW_PRODUCT_TO_SERVER')
 }
 

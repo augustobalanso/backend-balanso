@@ -13,15 +13,15 @@ html(lang="en")
             form(action="/productos", method="post")
                 label(for="title") Nombre de Producto:
                 br
-                input.form-control(type="text", name="title")
+                input.form-control(type="text", id="prodTitle" , name="title")
                 br
                 label(for="price") Precio:
                 br
-                input.form-control(type="number", name="price")
+                input.form-control(type="number", id="prodPrice" , name="price")
                 br
                 label(for="thumbnail") URL imagen:
                 br
-                input.form-control(type="text", name="thumbnail")
+                input.form-control(type="text", id="prodThumbnail", name="thumbnail")
                 br
                 input#buttonSubmitProd(type="submit", onclick="sendProduct(this)" value="Enviar")
             br
