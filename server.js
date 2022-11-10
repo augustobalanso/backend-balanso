@@ -12,13 +12,14 @@ io.on('connection', (socket) => {
     console.info('Nuevo cliente conectado')
     socket.emit('UPDATE_CHAT', messages)
     socket.emit('UPDATE_PRODUCTS', products)
+
     socket.on('NEW_MESSAGE_TO_SERVER', (data) => {
         messages.push(data)
         io.sockets.emit('NEW_MESSAGE_TO_SERVER', data)
         fs.writeFileSync('./chatHistory.txt', JSON.stringify(messages), 'utf-8')
     })
+    
     socket.on('NEW_PRODUCT_TO_SERVER', async (data) => {
-        console.log(data)
         io.sockets.emit('NEW_PRODUCT_TO_SERVER', data)
         await contenedor.save(data)
     })
