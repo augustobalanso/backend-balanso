@@ -21,7 +21,11 @@ async function sendProduct(){
 function sendMessage(){
     const message = document.querySelector('#submit-message').value
     const username = document.querySelector('#submit-username').value
-    socket.emit('NEW_MESSAGE_TO_SERVER', {username: username ,message: message,timestamp: new Date().toLocaleString()})
+    socket.emit('NEW_MESSAGE_TO_SERVER', {
+        username: username ,
+        message: message,
+        timestamp: new Date().toLocaleString()
+    })
 }
  
 function updateProducts(data){
