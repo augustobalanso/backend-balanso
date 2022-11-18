@@ -1,0 +1,174 @@
+{
+	"info": {
+		"_postman_id": "a1dfb9b4-2665-4cd3-9e61-893327c728fc",
+		"name": "Desafio 8 / Productos",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "22122331"
+	},
+	"item": [
+		{
+			"name": "GET HEALTH",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/carrito/health",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"carrito",
+						"health"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST PRODUCTO",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"title\": \"Primer producto\",\r\n        \"desc\": \"Primero de los productos de la lista\",\r\n        \"codigo\": \"3141243\",\r\n        \"thumbnail\": \"./img/prod/asd1.jpg\",\r\n        \"price\": \"40000\",\r\n        \"stock\": \"10\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/api/productos",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"productos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST PRODUCTO2",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"title\": \"Segundo producto\",\r\n        \"desc\": \"Segundo de los productos de la lista\",\r\n        \"codigo\": \"3125415\",\r\n        \"thumbnail\": \"./img/prod/asd2.jpg\",\r\n        \"price\": \"30000\",\r\n        \"stock\": \"15\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/api/productos",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"productos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET ALL PRODUCTS",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/productos",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"productos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET PRODUCT BY ID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/productos/5ec617dd-d2fa-4225-8ce8-7ee0906b2d0f",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"productos",
+						"5ec617dd-d2fa-4225-8ce8-7ee0906b2d0f"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PUT PRODUCT BY ID",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"title\": \"Segundo producto editado\",\r\n    \"desc\": \"Segundo de los productos editados de la lista\",\r\n    \"codigo\": \"3125415\",\r\n    \"thumbnail\": \"./img/prod/asd2.jpg\",\r\n    \"price\": \"32000\",\r\n    \"stock\": \"13\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/api/productos/c97c282b-1571-4a67-b176-ea3444f1095e",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"productos",
+						"c97c282b-1571-4a67-b176-ea3444f1095e"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DEL PRODUCTO BY ID",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/productos/c97c282b-1571-4a67-b176-ea3444f1095e",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"productos",
+						"c97c282b-1571-4a67-b176-ea3444f1095e"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
