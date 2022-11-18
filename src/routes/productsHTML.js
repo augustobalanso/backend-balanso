@@ -1,7 +1,6 @@
 const router = require('express').Router()
 const errorMiddleware = require('../middlewares/errorHandler')
 const contenedor = require('../../storage/initClassProducts')
-var _ = require('lodash')
 
 router.get('/', async (_req, res) => {
     res.render('index')
@@ -12,19 +11,21 @@ router.get('/lista', async (_req, res) => {
         res.render('productos', { products: await contenedor.getAll()})
     }
     catch(error){
-        errorMiddleware(error,req,res)
+        errorMiddleware(error,_req,res)
     }
 })
 
-router.post('/', async (req,res) => {
-    console.log(req.body)
-    try {
-        await contenedor.save(req.body)
-        res.status(200).redirect('/productos')
-    }
-    catch(error){
-        errorMiddleware(error,req,res)
-    }
-})
+// router.post('/', async (req,res) => {
+//     console.log(req.body)
+//     try {
+//         res.status(200).json(await contenedor.save(req.body))
+//     }
+//     catch(error){
+//         errorMiddleware(error,req,res)
+//     }
+//     finally{
+//         res.status(200).redirect('/productos')
+//     }
+// })
 
 module.exports = router

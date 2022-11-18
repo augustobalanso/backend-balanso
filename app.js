@@ -1,7 +1,8 @@
-const express = require('express')
-const indexRouter = require('./src/routes/index')
-const errorMiddleware = require('./src/middlewares/errorHandler')
-const logger = require('morgan')
+const express = require('express');
+const {Server: HttpServer} = require('http');
+const {Server: IoServer} = require('socket.io');
+const indexRouter = require('./src/routes/index');
+const errorMiddleware = require('./src/middlewares/errorHandler');
 
 require('dotenv').config();
 
@@ -12,7 +13,8 @@ app.set('view engine', 'pug')
 
 app.use(express.json())
 app.use(express.urlencoded({ extended : true }))
-app.use(logger('dev'))
+app.use(express.static(__dirname + '/views'));
+// app.use(logger('dev'))
 
 app.use('/', indexRouter)
 app.get('/', (req,res) =>{
@@ -21,4 +23,14 @@ app.get('/', (req,res) =>{
 
 app.use(errorMiddleware)
 
-module.exports = app;
+const http = new HttpServer(app)
+const io = new IoServer(http, {
+    cors: {
+        origin: "https://backend-balanso-2dacursada-production.up.railway.app/productos"
+    }
+})
+
+module.exports = {
+    http: http,
+    io: io
+};
