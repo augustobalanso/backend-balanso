@@ -1,8 +1,8 @@
 const router = require('express').Router()
-const productos = require('./products')
-const productosHTML = require('./productsHTML')
+const productos = require('./api/productos/productos.routes')
+const carrito = require('./api/carrito/carrito.routes')
 
-router.use('/api', productos)
-router.use('/productos', productosHTML)
+router.use('/carrito', carrito)
+router.use('/productos', productos)
 
 module.exports = router;

@@ -1,0 +1,22 @@
+[
+  {
+    "title": "Primer producto",
+    "desc": "Primero de los productos de la lista",
+    "codigo": "3141243",
+    "thumbnail": "./img/prod/asd1.jpg",
+    "price": "40000",
+    "stock": "10",
+    "uuid": "37d91a08-8eeb-499d-b6b0-b178137864b9",
+    "timestamp": 1668229180450
+  },
+  {
+    "title": "Segundo producto",
+    "desc": "Segundo de los productos de la lista",
+    "codigo": "3125415",
+    "thumbnail": "./img/prod/asd2.jpg",
+    "price": "30000",
+    "stock": "15",
+    "uuid": "055b1d4f-1596-416d-a67e-08c4ae10837b",
+    "timestamp": 1668728495018
+  }
+]
