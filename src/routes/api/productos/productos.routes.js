@@ -1,4 +1,3 @@
-const errorMiddleware = require('../../../middleware/errorHandler')
 const { v4: uuidv4 } = require('uuid')
 const router = require('express').Router()
 const ProductService = require('../../../services/productos/productos.service')
@@ -46,7 +45,7 @@ router.post('/', login , async (req, res, next) => {
         });
         const data = await productService.createProduct(body);
         if(!data.success)(res.status(500).json(data))
-        res.status(200).json(data);
+        res.status(201).json(data);
     }catch(err){
         next(err);
     }   

@@ -21,7 +21,7 @@ router
     })
     .post('/', async (_req, res) => {
         try{
-            res.status(200).json(await cartService.createCart())
+            res.status(201).json(await cartService.createCart())
         } catch(error){
             errorMiddleware(error)
         }
@@ -55,7 +55,7 @@ router
     })
     .post('/:id/productos/:id_prod', async (req, res) => {
         const { id, id_prod } = req.params
-        res.status(200).json(await cartService.addToCart(id, id_prod))
+        res.status(201).json(await cartService.addToCart(id, id_prod))
     })
     .delete('/:id/productos/:id_prod', async (req, res) => {
         const { id, id_prod } = req.params

@@ -1,4 +1,5 @@
 const fs = require('fs');
+const { all } = require('../../routes/api/productos/productos.routes');
 const ProductService = require('../productos/productos.service')
 const productService = new ProductService()
 
@@ -10,9 +11,8 @@ class CartService{
     async createCart() {
         try{
             const fetchedCart = JSON.parse(await fs.promises.readFile(__dirname + this.fileName));
-            const id = fetchedCart.length + 1;
+            const id = fetchedCart[fetchedCart.length - 1].id + 1;
             const initCart = { id, timestamp: Date.now(), products: [] };
-
             fetchedCart.push(initCart);
             fs.writeFileSync(__dirname + '/carrito.json', JSON.stringify(fetchedCart));
 
@@ -138,9 +138,7 @@ class CartService{
     
             return {
                 success: true, 
-                data: newCarts,
-                id: id,
-                uuid: id_prod
+                data: newCarts
             }
             
         } catch(err){
@@ -155,7 +153,16 @@ class CartService{
     async deleteCart(id){
         try{
             const allCarts = await this.getCarts()
-            const filteredCarts = allCarts.filter((cart) => cart.id != id)
+
+            // NOT FOUND ESCAPE
+            if(allCarts.data.filter((cart) => cart.id == id).length == 0){
+                return {
+                    success: false,
+                    message: `cartID ${id} no encontrado`
+                }
+            }
+
+            const filteredCarts = allCarts.data.filter((cart) => cart.id != id)
             await fs.promises.writeFile(__dirname + this.fileName, JSON.stringify(filteredCarts))
             return {
                 success: true,
