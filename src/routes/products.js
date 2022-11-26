@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const contenedor = require('../../storage/initClassProducts')
+const contenedor = require('../services/database/products/products.knex')
 const errorMiddleware = require('../middlewares/errorHandler')
 
 router.get('/health', (_req,res) => {
@@ -14,7 +14,7 @@ router.get('/health', (_req,res) => {
 router.get('/', async (req,res) => {
     try {
         if(req.query.id){
-            res.status(200).json(await contenedor.getById(Number(req.query.id)))
+            res.status(200).json(await contenedor.getByID(req.query.id))
         } else {
             res.status(200).json(await contenedor.getAll())
         }
@@ -26,7 +26,7 @@ router.get('/', async (req,res) => {
 
 router.get('/:id', async (req,res) => {
     try {
-        res.status(200).json(await contenedor.getById(Number(req.params.id)))
+        res.status(200).json(await contenedor.getByID(req.params.id))
     }
     catch(error){
         errorMiddleware(error,req,res)
@@ -44,7 +44,7 @@ router.post('/', async (req,res) => {
 
 router.put('/:id', async (req,res) => {
     try {
-        res.status(200).json(await contenedor.UpdateById(Number(req.params.id),req.body))
+        res.status(200).json(await contenedor.updateByID(req.params.id,req.body))
     }
     catch(error){
         errorMiddleware(error,req,res)

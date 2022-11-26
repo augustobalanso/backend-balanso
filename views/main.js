@@ -1,4 +1,4 @@
-const socket = io("https://backend-balanso-2dacursada-production.up.railway.app/")
+const socket = io()
 
 let messages = []
 let products = []
@@ -43,7 +43,7 @@ function updateProducts(data){
 function updateMessages(data){
     let messagesToHtml = ''
     data.forEach(i => {
-        messagesToHtml += `<li>[${i.timestamp}] <b>${i.username}</b>: <i>${i.message}</i></li>`
+        messagesToHtml += `<li>[${i.timestamp.toLocaleString()}] <b>${i.username}</b>: <i>${i.message}</i></li>`
     })
     document.querySelector('#chatPlaceholder').innerHTML = messagesToHtml
 }

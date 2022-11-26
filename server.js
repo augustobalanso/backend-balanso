@@ -1,26 +1,25 @@
-const { io, http } = require('./app')
-const fs = require('fs')
-const contenedor = require('./storage/initClassProducts')
+const { io, http } = require('./app');
+const initChatDBContainer = require('./src/services/database/chat/chat.knex');
+const initProdDBContainer = require('./src/services/database/products/products.knex')
 
-const messages = JSON.parse(fs.readFileSync('./chatHistory.txt','utf-8'))
 const PORT = process.env.PORT;
 
 http.listen(PORT, () => console.info(`Server up and running on port ${PORT}`));
 
-io.on('connection', (socket) => {
-    const products = JSON.parse(fs.readFileSync('./productos.txt','utf-8'))
+io.on('connection', async (socket) => {
+    const products = await initProdDBContainer.getAll()
+    const chat = await initChatDBContainer.getAll()
     console.info('Nuevo cliente conectado')
-    socket.emit('UPDATE_CHAT', messages)
+    socket.emit('UPDATE_CHAT', chat)
     socket.emit('UPDATE_PRODUCTS', products)
 
-    socket.on('NEW_MESSAGE_TO_SERVER', (data) => {
-        messages.push(data)
-        io.sockets.emit('NEW_MESSAGE_TO_SERVER', data)
-        fs.writeFileSync('./chatHistory.txt', JSON.stringify(messages), 'utf-8')
+    socket.on('NEW_MESSAGE_TO_SERVER', async (message) => {
+        io.sockets.emit('NEW_MESSAGE_TO_SERVER', message)
+        await initChatDBContainer.save(message)
     })
     
-    socket.on('NEW_PRODUCT_TO_SERVER', async (data) => {
-        io.sockets.emit('NEW_PRODUCT_TO_SERVER', data)
-        await contenedor.save(data)
+    socket.on('NEW_PRODUCT_TO_SERVER', async (product) => {
+        io.sockets.emit('NEW_PRODUCT_TO_SERVER', product)
+        await initProdDBContainer.save(product)
     })
 })

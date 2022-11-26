@@ -1,4 +1,4 @@
-const errorMiddleware = (error,_req,res,next) => {
+const errorMiddleware = (error,_req,res,_next) => {
     console.log(error)
     res.status(400).json(
         {
