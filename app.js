@@ -25,11 +25,7 @@ app.get('/', (req,res) =>{
 app.use(errorMiddleware)
 
 const http = new HttpServer(app)
-const io = new IoServer(http, {
-    cors: {
-        origin: "https://backend-balanso-2dacursada-production.up.railway.app/productos"
-    }
-})
+const io = new IoServer(http)
 
 module.exports = {
     http: http,

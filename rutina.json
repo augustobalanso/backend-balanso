@@ -1,19 +1,56 @@
 {
 	"info": {
-		"_postman_id": "8e0866b5-18a2-438d-b7e2-ba93715816e4",
-		"name": "Desafio 4 API Restful",
+		"_postman_id": "398e5cec-b732-488a-ad0a-929fc148c2dc",
+		"name": "Desafio 9 - SQLite3",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "22122331"
 	},
 	"item": [
 		{
-			"name": "subir producto (array)",
+			"name": "GET ALL PRODUCTS IN DB",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET PROD BY ID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/4e34cb66-a077-46ac-b18b-aa433cce6752",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"4e34cb66-a077-46ac-b18b-aa433cce6752"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST PROD",
 			"request": {
 				"method": "POST",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "[\r\n    {\r\n        \"title\": \"producto1\",\r\n        \"price\": 3000,\r\n        \"thumbnail\": \"./img/01.jpg\"\r\n    },\r\n    {\r\n        \"title\": \"producto2\",\r\n        \"price\": 2000,\r\n        \"thumbnail\": \"./img/02.jpg\"\r\n    }\r\n]",
+					"raw": "{\r\n    \"title\": \"producto4 en db\",\r\n    \"price\": \"18000\",\r\n    \"thumbnail\": \"./asd/03.jpg\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -21,109 +58,26 @@
 					}
 				},
 				"url": {
-					"raw": "localhost:8080/api/productos/",
+					"raw": "localhost:8080/api",
 					"host": [
 						"localhost"
 					],
 					"port": "8080",
 					"path": [
-						"api",
-						"productos",
-						""
+						"api"
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "subir producto (object)",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"title\": \"producto3\",\r\n    \"price\": 4000,\r\n    \"thumbnail\": \"./img/03.jpg\"\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "localhost:8080/api/productos/",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"api",
-						"productos",
-						""
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "todos los productos",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "localhost:8080/api/productos/",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"api",
-						"productos",
-						""
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "producto x id",
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
-			"request": {
-				"method": "GET",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "localhost:8080/api/productos/3",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"api",
-						"productos",
-						"3"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "editar producto",
+			"name": "UPDATE BY ID",
 			"request": {
 				"method": "PUT",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\"title\":\"producto3editado\",\"price\":4500,\"thumbnail\":\"./img/nuevo03.jpg\"}",
+					"raw": "{\r\n    \"title\": \"producto2 en db editado\",\r\n    \"price\": \"12000\",\r\n    \"thumbnail\": \"./asd/02editado.jpg\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -131,54 +85,33 @@
 					}
 				},
 				"url": {
-					"raw": "localhost:8080/api/productos/3",
+					"raw": "localhost:8080/api/23c67f2d-c8fa-4073-89a0-e1cbb3aa0260",
 					"host": [
 						"localhost"
 					],
 					"port": "8080",
 					"path": [
 						"api",
-						"productos",
-						"3"
+						"23c67f2d-c8fa-4073-89a0-e1cbb3aa0260"
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "borrar producto x id",
+			"name": "DEL BY ID",
 			"request": {
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "localhost:8080/api/productos/3",
+					"raw": "localhost:8080/api/23c67f2d-c8fa-4073-89a0-e1cbb3aa0260",
 					"host": [
 						"localhost"
 					],
 					"port": "8080",
 					"path": [
 						"api",
-						"productos",
-						"3"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "borrar todos los productos",
-			"request": {
-				"method": "DELETE",
-				"header": [],
-				"url": {
-					"raw": "localhost:8080/api/productos",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"api",
-						"productos"
+						"23c67f2d-c8fa-4073-89a0-e1cbb3aa0260"
 					]
 				}
 			},

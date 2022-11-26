@@ -24,7 +24,7 @@ function sendMessage(){
     socket.emit('NEW_MESSAGE_TO_SERVER', {
         username: username ,
         message: message,
-        timestamp: new Date().toLocaleString()
+        timestamp: new Date()
     })
 }
  
@@ -43,7 +43,7 @@ function updateProducts(data){
 function updateMessages(data){
     let messagesToHtml = ''
     data.forEach(i => {
-        messagesToHtml += `<li>[${i.timestamp.toLocaleString()}] <b>${i.username}</b>: <i>${i.message}</i></li>`
+        messagesToHtml += `<li>[${new Date(i.timestamp).toLocaleString()}] <b>${i.username}</b>: <i>${i.message}</i></li>`
     })
     document.querySelector('#chatPlaceholder').innerHTML = messagesToHtml
 }

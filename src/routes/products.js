@@ -53,7 +53,7 @@ router.put('/:id', async (req,res) => {
 
 router.delete('/:id', async (req,res) => {
     try {
-        res.status(200).json(await contenedor.deleteById(Number(req.params.id)))
+        res.status(200).json(await contenedor.deleteByID(req.params.id))
     }
     catch(error){
         errorMiddleware(error,req,res)

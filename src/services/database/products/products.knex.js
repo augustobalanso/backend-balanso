@@ -14,7 +14,7 @@ class prodContainer {
                 table.string('price');
                 table.string('thumbnail');
                 table.string('code');
-                table.string('timestamp')
+                table.int('timestamp')
               })
                 .then(() => console.info('New table created'))
                 .catch(err => errorHandler(err))
@@ -78,7 +78,10 @@ class prodContainer {
     async deleteByID(code) {
         try {
             await this.knex('products').where({code : code}).del()
-            return { success: `elemento con id ${code} eliminado`}
+            return { 
+                success: true,
+                msg: `elemento con id ${code} eliminado`
+            }
         } catch {
             errorHandler(err)
         }
