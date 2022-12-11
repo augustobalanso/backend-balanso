@@ -1,0 +1,121 @@
+{
+	"info": {
+		"_postman_id": "a7bb681b-709d-407f-8114-2d7dbc2d4cfa",
+		"name": "Productos",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "22122331"
+	},
+	"item": [
+		{
+			"name": "GET PRODUCTOS",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/productos",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"productos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST PRODUCTO",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"title\":\"Producto 3\",\r\n    \"desc\": \"Producto de muestra para subir a db\",\r\n    \"codigo\": 31323141200003123,\r\n    \"stock\": 40,\r\n    \"price\": 3000,\r\n    \"thumbnail\":\"./img/asd03.jpg\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/productos",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"productos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET PRODUCTO X ID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/productos/af36d5a8-4613-4765-be66-a53d90b5d1c8",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"productos",
+						"af36d5a8-4613-4765-be66-a53d90b5d1c8"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UPDATE PRODUCT X ID",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"title\":\"producto1 editado\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/productos/af36d5a8-4613-4765-be66-a53d90b5d1c8",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"productos",
+						"af36d5a8-4613-4765-be66-a53d90b5d1c8"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE PRODUCTO X ID",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/productos/4547ef79-ee24-450b-8d15-964c99109f56",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"productos",
+						"4547ef79-ee24-450b-8d15-964c99109f56"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

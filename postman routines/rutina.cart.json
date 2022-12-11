@@ -1,0 +1,107 @@
+{
+	"info": {
+		"_postman_id": "1a24fed2-99ac-42db-9333-28953e291200",
+		"name": "Carrito",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "22122331"
+	},
+	"item": [
+		{
+			"name": "CREATE CART",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/carrito",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"carrito"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET CARTS",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/carrito",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"carrito"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET CART BY ID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/carrito/d6cebff3-1d87-492c-96eb-8c84cc249fcd",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"carrito",
+						"d6cebff3-1d87-492c-96eb-8c84cc249fcd"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ADD PROD TO CART",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/carrito/d6cebff3-1d87-492c-96eb-8c84cc249fcd/prod/4547ef79-ee24-450b-8d15-964c99109f56",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"carrito",
+						"d6cebff3-1d87-492c-96eb-8c84cc249fcd",
+						"prod",
+						"4547ef79-ee24-450b-8d15-964c99109f56"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE PROD FROM CART",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/carrito/d6cebff3-1d87-492c-96eb-8c84cc249fcd/prod/4547ef79-ee24-450b-8d15-964c99109f56",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"carrito",
+						"d6cebff3-1d87-492c-96eb-8c84cc249fcd",
+						"prod",
+						"4547ef79-ee24-450b-8d15-964c99109f56"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
