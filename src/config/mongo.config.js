@@ -16,7 +16,11 @@ const mongoosePromise = mongoose.connect(uri, {
     }
 });
 
-
+const CartSchema = new mongoose.Schema({
+    _id: {type: String, require: true, max: 50},
+    timestamp: {type: Number, require: true},
+    products: {type: Array}
+}, { versionKey: false })
 
 const ProductSchema = new mongoose.Schema({
     title: {type: String, require: true, max: 50},
@@ -29,4 +33,4 @@ const ProductSchema = new mongoose.Schema({
     _id: {type: String, require: true, max: 50}
 }, { versionKey: false })
 
-export { ProductSchema } 
+export { ProductSchema, CartSchema } 
