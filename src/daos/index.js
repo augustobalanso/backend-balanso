@@ -6,6 +6,9 @@ const getProductModule = async () => {
     } else if(dataCore == "MONGO"){
         const ProdModuleSource = await import('./productos/mongo.dao.js')
         return ProdModuleSource.default
+    } else if(dataCore == "SQLITE"){
+        const ProdModuleSource = await import('./productos/sqlite.dao.js')
+        return ProdModuleSource.default
     } else {
         return {
             success: "false",
@@ -22,6 +25,9 @@ const getCartModule = async () => {
     } else if(dataCore == "MONGO"){
         const CartModuleSource = await import('./carrito/mongo.dao.js')
         return CartModuleSource.default
+    } else if(dataCore == "SQLITE"){
+        const ProdModuleSource = await import('./carrito/sqlite.dao.js')
+        return ProdModuleSource.default
     } else {
         return {
             success: "false",
