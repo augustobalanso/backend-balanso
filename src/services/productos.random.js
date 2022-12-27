@@ -4,7 +4,7 @@ class ProductsRandom {
     constructor(){
     }
 
-    get5random(){
+    async get5random(){
         return [
             {
                 name: faker.commerce.product(),
@@ -35,4 +35,6 @@ class ProductsRandom {
     }
 }
 
-export default ProductsRandom
+const productsRandom = new ProductsRandom()
+
+export default productsRandom

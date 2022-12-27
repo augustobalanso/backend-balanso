@@ -1,14 +1,11 @@
 import { Router } from "express";
-import ProductsRandom from "../services/productos.random.js";
+import productsRandom from "../services/productos.random.js";
 const router = Router()
-
-const initProductsRandom = new ProductsRandom()   
 
 router.get('/', (_req, res) => {
 
-
     try{
-        const randomProducts = initProductsRandom.get5random()
+        const randomProducts = productsRandom.get5random()
         res.status(200).json({
             success: true,
             data: randomProducts
@@ -19,6 +16,7 @@ router.get('/', (_req, res) => {
             msg: err.message
         })
     }
+
 })
 
 export default router
