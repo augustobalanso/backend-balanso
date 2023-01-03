@@ -2,10 +2,10 @@ import { Router } from "express";
 import productsRandom from "../services/productos.random.js";
 const router = Router()
 
-router.get('/', (_req, res) => {
+router.get('/', async (_req, res) => {
 
     try{
-        const randomProducts = productsRandom.get5random()
+        const randomProducts = await productsRandom.get5random()
         res.status(200).json({
             success: true,
             data: randomProducts
