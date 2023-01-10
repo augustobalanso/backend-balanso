@@ -12,21 +12,19 @@ const mongoModel = mongoose.model('chats', MessageSchema)
 
 http.listen(PORT, () => console.info(`Server up and running on port ${PORT}`));
 
-const authorSchema = new schema.Entity('author')
-const textSchema = new schema.Entity('text')
-const mongoidSchema = new schema.Entity('_id')
-const messageSchema = new schema.Entity('messages',{
+const authorSchema = new schema.Entity('author',{}, { idAttribute: 'email'})
+const messageSchema = new schema.Entity('msg',{
     author: authorSchema,
-    text: textSchema
-})
+}, { idAttribute: '_id' })
+
+const messagesSchema = [messageSchema]
 
 io.on('connection', async (socket) => {
     const fetchedChat = await mongoModel.find()
+    const normalizedData = normalize(JSON.parse(JSON.stringify(fetchedChat)), messagesSchema)
 
     console.info('Nuevo cliente conectado, id:', socket.id)
-    socket.emit('UPDATE_CHAT', normalize(fetchedChat, messageSchema))
-    console.log(util.inspect(normalize(fetchedChat, messageSchema), false, 7, true))
-
+    socket.emit('UPDATE_CHAT', normalizedData)
 
     socket.on('RECEIVE_PRODUCTS', async () => {
         const products5 = await productsRandom.get5random()

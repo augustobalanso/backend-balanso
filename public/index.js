@@ -1,20 +1,17 @@
 const socket = io()
 
-let messages = []
+let denormData = []
 
 // -------- Normalizr Schemas --------- //
 
-const authorSchema = new normalizr.schema.Entity('authors')
-const textSchema = new normalizr.schema.Entity('texts')
-const idSchema = new normalizr.schema.Entity('_id')
-const messageSchema = new normalizr.schema.Object({
+const authorSchema = new normalizr.schema.Entity('author',{}, { idAttribute: 'email'})
+const messageSchema = new normalizr.schema.Entity('msg',{
     author: authorSchema,
-    text: textSchema,
-    _id: idSchema
-})
+}, { idAttribute: '_id' })
+
+const messagesSchema = [messageSchema]
 
 // ----------------------------------- //
-
 
 document.querySelector('#submitProduct').addEventListener("click", (e) => {
     e.preventDefault()
@@ -70,11 +67,11 @@ socket.on('UPDATE_PRODUCTS', (data) => {
 })
 
 socket.on('UPDATE_CHAT', (data) => {
-    console.log(normalizr.denormalize(data.result , messageSchema, data.entities))
-    // updateMessages(messages)
+    denormData = normalizr.denormalize(data.result , messagesSchema, data.entities)
+    updateMessages(denormData)
 })
 
 socket.on('NEW_MESSAGE_TO_SERVER', (data) => {
-    messages.push(data)
-    updateMessages(messages)
+    denormData.push(data)
+    updateMessages(denormData)
 })
