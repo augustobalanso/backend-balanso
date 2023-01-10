@@ -37,4 +37,3 @@ io.on('connection', async (socket) => {
         mongoModel.create(data)
     })
 })
-
