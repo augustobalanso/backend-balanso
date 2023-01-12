@@ -5,16 +5,63 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Desafio 11</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.0.1/mdb.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="/index.css">
 </head>
 
 <body style="background-color: #eee;">
 
-    <div>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <!-- Container wrapper -->
+        <div class="container">
+            <!-- Navbar brand -->
+            <a class="navbar-brand me-2" href="http://localhost:8080/">
+                <img src="https://mdbcdn.b-cdn.net/img/logo/mdb-transaprent-noshadows.webp" height="16" alt="MDB Logo"
+                    loading="lazy" style="margin-top: -1px;" />
+            </a>
 
+            <!-- Toggle button -->
+            <button class="navbar-toggler" type="button" data-mdb-toggle="collapse"
+                data-mdb-target="#navbarButtonsExample" aria-controls="navbarButtonsExample" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <i class="fas fa-bars"></i>
+            </button>
+
+            <!-- Collapsible wrapper -->
+            <div class="collapse navbar-collapse" id="navbarButtonsExample">
+                <!-- Left links -->
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Desafio 11 <span id="welcomeUserName"></span></a>
+                    </li>
+                </ul>
+                <!-- Left links -->
+
+                <div class="d-flex align-items-center">
+                    <div id="unknownUserButtons">
+                        <button type="button" id="loginButton" class="btn btn-link px-3 me-2">
+                            <a href="./login.html">Login</a>
+                        </button>
+                        <button type="button" id="logoutButton" class="btn btn-link me-3">
+                            <a href="./signup.html">Registrate</a>
+                        </button>
+                    </div>
+                    <div id="registeredUserButtons">
+                        <button type="button" id="logoutButton" class="btn btn-primary me-3">
+                            Logout
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <!-- Collapsible wrapper -->
+        </div>
+        <!-- Container wrapper -->
+    </nav>
+
+    <div>
         <section style="background-color: #eee;">
             <div class="container py-5">
 
@@ -29,7 +76,8 @@
                                 <i class="fas fa-chevron-down"></i>
                             </div>
                         </a>
-                        <button id="submitProduct" type="button" class="btn btn-primary" onclick="generateProducts()">Generar
+                        <button id="submitProduct" type="button" class="btn btn-primary"
+                            onclick="generateProducts()">Generar
                             Productos</button>
                         <!-- Collapsed content -->
                         <div class="collapse mt-3" id="collapseProducts">
@@ -69,7 +117,8 @@
                         <!-- Collapsed content -->
                         <div class="collapse mt-3" id="collapseChat">
                             <div class="card" id="chat4">
-                                <div id="chatBody" class="card-body" data-mdb-perfect-scrollbar="true" style="position: relative; height: 400px; overflow: scroll">
+                                <div id="chatBody" class="card-body" data-mdb-perfect-scrollbar="true"
+                                    style="position: relative; height: 400px; overflow: scroll">
 
                                 </div>
 
@@ -79,23 +128,24 @@
                                         alt="avatar 3" style="width: 40px; height: 100%;" />
                                     <div>
                                         <div class="input-group flex-wrap">
-                                            <input type="text" class="form-control form-control-lg"
-                                                id="formEmail" placeholder="Usuario (e-mail)">
-                                            <input type="text" class="form-control form-control-lg"
-                                                id="formName" placeholder="Nombre">
-                                            <input type="text" class="form-control form-control-lg"
-                                                id="formLastName" placeholder="Apellido">
-                                            <input type="text" class="form-control form-control-lg"
-                                                id="formAge" placeholder="Edad">
-                                            <input type="text" class="form-control form-control-lg"
-                                                id="formAlias" placeholder="Alias">
-                                            <input type="text" class="form-control form-control-lg"
-                                                id="formAvatar" placeholder="Avatar (URL)">
+                                            <input type="text" class="form-control form-control-lg" id="formEmail"
+                                                placeholder="Usuario (e-mail)">
+                                            <input type="text" class="form-control form-control-lg" id="formName"
+                                                placeholder="Nombre">
+                                            <input type="text" class="form-control form-control-lg" id="formLastName"
+                                                placeholder="Apellido">
+                                            <input type="text" class="form-control form-control-lg" id="formAge"
+                                                placeholder="Edad">
+                                            <input type="text" class="form-control form-control-lg" id="formAlias"
+                                                placeholder="Alias">
+                                            <input type="text" class="form-control form-control-lg" id="formAvatar"
+                                                placeholder="Avatar (URL)">
                                         </div>
-                                            <input type="text" class="form-control form-control-lg"
-                                                id="formMessage" placeholder="Escribir mensaje...">
+                                        <input type="text" class="form-control form-control-lg" id="formMessage"
+                                            placeholder="Escribir mensaje...">
                                     </div>
-                                    <button class="ms-3 link-info" onclick="sendMessage()"><i class="fas fa-paper-plane"></i></button>
+                                    <button class="ms-3 link-info" onclick="sendMessage()"><i
+                                            class="fas fa-paper-plane"></i></button>
                                 </div>
                             </div>
                         </div>
@@ -111,7 +161,7 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.0.1/mdb.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/normalizr@3.6.2/dist/normalizr.browser.min.js"></script>
     <script src="/socket.io/socket.io.js"></script>
-    <script src="./index.js"></script>
+    <script src="/index.js"></script>
 </body>
 
 </html>

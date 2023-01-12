@@ -58,12 +58,20 @@ async function sendMessage(){
     socket.emit('NEW_MESSAGE_TO_SERVER', messageBody)
 }
 
+socket.on('connect_error', (err) => {
+    console.log(`connect_error due to ${err.message}`)
+})
+
 socket.on('UPDATE_PRODUCTS', (data) => {
     const productsTable = document.getElementById('productsTable')
     const productsHtml = data.map( (prod) => {
         return `<tr><td><div class="d-flex align-items-center"><img src="${prod.photo}" alt="${prod.name}" style="width: 45px; height: 45px" class="rounded-circle"/></div></td><td><div class="ms-3"><p class="fw-bold mb-1">${prod.name}</p></div></td><td><p class="fw-normal mb-1">${prod.price}</p></td></tr>`
     })
     productsTable.innerHTML = productsHtml.join('')
+})
+
+socket.on('LOGIN', (data) => {
+    const navbarWelcome = document.getElementById('welcomeUserName')
 })
 
 socket.on('UPDATE_CHAT', (data) => {

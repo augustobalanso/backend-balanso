@@ -1,5 +1,5 @@
 import { Router } from "express";
-import productsRandom from "../services/productos.random.js";
+import productsRandom from "../services/products/productos.random.js";
 const router = Router()
 
 router.get('/', async (_req, res) => {

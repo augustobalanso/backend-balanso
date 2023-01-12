@@ -1,14 +1,14 @@
 import { http , io } from "./app.js"
-import mongoose, { mongo } from "mongoose";
-import MessageSchema from "./src/config/mongo.config.js";
-import productsRandom from "./src/services/productos.random.js";
+import mongoose from "mongoose";
+import mongooseChatConnection from "./src/services/mongo/config/chat.config.js";
+import MessageSchema from "./src/services/mongo/models/chat.models.js";
+import productsRandom from "./src/services/products/productos.random.js";
 import { schema, normalize } from "normalizr";
-import util from 'util'
-import { v4 as uuid } from "uuid";
+import { v4 as uuid } from "uuid"; 
 
 const PORT = process.env.PORT || 8000
 
-const mongoModel = mongoose.model('chats', MessageSchema)
+const mongoChatModel = mongooseChatConnection.model('chats', MessageSchema)
 
 http.listen(PORT, () => console.info(`Server up and running on port ${PORT}`));
 
@@ -20,9 +20,8 @@ const messageSchema = new schema.Entity('msg',{
 const messagesSchema = [messageSchema]
 
 io.on('connection', async (socket) => {
-    const fetchedChat = await mongoModel.find()
+    const fetchedChat = await mongoChatModel.find()
     const normalizedData = normalize(JSON.parse(JSON.stringify(fetchedChat)), messagesSchema)
-
     console.info('Nuevo cliente conectado, id:', socket.id)
     socket.emit('UPDATE_CHAT', normalizedData)
 

@@ -1,20 +1,4 @@
-import mongoose from 'mongoose'
-const uri = process.env.MONGODB_URI
-
-mongoose.set('strictQuery', false);
-
-const mongoosePromise = mongoose.connect(uri, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    authSource:"admin",
-    ssl: true
-}, (err) => {
-    if (err) {
-        console.log(err);
-    } else {
-        console.log("Connected to mongodb atlas");
-    }
-});
+import mongoose from "mongoose"
 
 const AuthorSchema = new mongoose.Schema({
     _id: { type: String, require: true },
@@ -32,4 +16,4 @@ const MessageSchema = new mongoose.Schema({
     _id: {type: String, require: true, max: 50}
 }, { versionKey: false })
 
-export default MessageSchema
+export default MessageSchema 
