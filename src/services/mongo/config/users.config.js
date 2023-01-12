@@ -16,7 +16,7 @@ const mongooseUserConnection = mongoose.createConnection(uri, {
     if (err) {
         console.log(err);
     } else {
-        console.log("Connected to mongodb");
+        console.log("Connected to mongo users db");
     }
 });
 

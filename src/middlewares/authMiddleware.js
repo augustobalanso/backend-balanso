@@ -1,3 +1,8 @@
-const authMiddleware = 0
+const authMiddleware = (req, res, next) => {
+    if(req.session.username && req.session.isAuth){
+        next()
+    }
+    res.redirect('login')
+}
 
-module.exports = authMiddleware
+export default authMiddleware

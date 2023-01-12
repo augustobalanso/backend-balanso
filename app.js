@@ -13,6 +13,7 @@ const app = express()
 
 app.use(express.json())
 app.use(express.urlencoded({ extended : true }))
+app.use(express.static('views'))
 
 // FIX __DIRNAME IN ES MODULES
 import path from 'path'
@@ -45,9 +46,12 @@ app.use(session({
     }
 }))
 
-// -------------------------
+app.set('view engine', 'ejs');
+app.set('views', './views');
 
 app.use('/', indexRouter)
+
+// -------------------------
 
 const http = new HttpServer(app)
 const io = new IoServer(http)
