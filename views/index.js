@@ -13,6 +13,24 @@ const messagesSchema = [messageSchema]
 
 // ----------------------------------- //
 
+function htmlCookieLoad(){
+
+    const cookies = document.cookie.split('; ').reduce((prev, current) => {
+        const [name, ...value] = current.split('=');
+        prev[name] = value.join('=');
+        return prev;
+      }, {});
+
+    if(JSON.parse(cookies.isAuth)){
+        const buttonGroup = document.querySelector('#unknownUserButtons')
+        buttonGroup.style.display = 'none'
+        const welcomeSpan = document.querySelector('#welcomeUserName')
+        return welcomeSpan.innerText = `- ${cookies.username}`
+    }
+    const buttonGroup = document.querySelector('#registeredUserButtons')
+    buttonGroup.style.display = 'none'
+}
+
 document.querySelector('#submitProduct').addEventListener("click", (e) => {
     e.preventDefault()
 })
@@ -57,6 +75,8 @@ async function sendMessage(){
 
     socket.emit('NEW_MESSAGE_TO_SERVER', messageBody)
 }
+
+htmlCookieLoad()
 
 socket.on('connect_error', (err) => {
     console.log(`connect_error due to ${err.message}`)

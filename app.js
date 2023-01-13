@@ -35,7 +35,7 @@ app.use(session({
         mongoUrl: process.env.MONGODB_USERS_URI,
         dbName: 'desafio11',
         collectionName: 'sessions',
-        ttl: 0 * 1 * 60 * 60
+        ttl: 1 * 60 * 60
     }),
     secret: COOKIE_SECRET,
     resave: false,
