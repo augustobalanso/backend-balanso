@@ -1,6 +1,5 @@
-Desafio 11 - Sessions in Mongo
+Desafio 12 - Login con Passport
 
 FUNCIONA:
 
-- Mongo funcional tanto para sessions como para registro y checkexists de usuarios.
-- Sessions persistentes a través de los reinicios del servidor.
+Registro, login y logout con passport (estrategia "local")
