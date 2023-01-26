@@ -24,10 +24,12 @@
     "ioredis": "^5.2.4",
     "lodash": "^4.17.21",
     "md5": "^2.3.0",
-    "mongoose": "^6.8.3",
+    "mongoose": "^6.8.4",
     "morgan": "^1.10.0",
     "nodemon": "^2.0.20",
     "normalizr": "^3.6.2",
+    "passport": "^0.6.0",
+    "passport-local": "^1.0.0",
     "socket.io": "^4.5.4",
     "util": "^0.12.5",
     "uuid": "^9.0.0"

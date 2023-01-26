@@ -21,7 +21,7 @@ function htmlCookieLoad(){
         return prev;
       }, {});
 
-    if(JSON.parse(cookies.isAuth)){
+    if(cookies.username){
         const buttonGroup = document.querySelector('#unknownUserButtons')
         buttonGroup.style.display = 'none'
         const welcomeSpan = document.querySelector('#welcomeUserName')
@@ -88,10 +88,6 @@ socket.on('UPDATE_PRODUCTS', (data) => {
         return `<tr><td><div class="d-flex align-items-center"><img src="${prod.photo}" alt="${prod.name}" style="width: 45px; height: 45px" class="rounded-circle"/></div></td><td><div class="ms-3"><p class="fw-bold mb-1">${prod.name}</p></div></td><td><p class="fw-normal mb-1">${prod.price}</p></td></tr>`
     })
     productsTable.innerHTML = productsHtml.join('')
-})
-
-socket.on('LOGIN', (data) => {
-    const navbarWelcome = document.getElementById('welcomeUserName')
 })
 
 socket.on('UPDATE_CHAT', (data) => {

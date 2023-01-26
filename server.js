@@ -33,6 +33,6 @@ io.on('connection', async (socket) => {
     socket.on('NEW_MESSAGE_TO_SERVER', async (data) => {
         io.sockets.emit('NEW_MESSAGE_TO_SERVER', data)
         data._id = uuid()
-        mongoModel.create(data)
+        mongoChatModel.create(data)
     })
 })
