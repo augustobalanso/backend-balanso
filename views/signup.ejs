@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.0.1/mdb.min.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="container" style="display: grid; min-height: 100vh; max-width: 60vw">
+    <form action="/signup" method="post" class="row justify-content-center align-content-center g-3 needs-validation" novalidate>
+        <div class="col-md-5">
+          <div class="form-outline">
+            <input type="text" class="form-control" id="validationCustom01" placeholder="Rupert" name="nombre" required />
+            <label for="validationCustom01" class="form-label">Nombre</label>
+            <div class="valid-feedback">Looks good!</div>
+          </div>
+        </div>
+        <div class="col-md-5">
+          <div class="form-outline">
+            <input type="text" class="form-control" id="validationCustom02" placeholder="Williams" name="apellido" required />
+            <label for="validationCustom02" class="form-label">Apellido</label>
+          </div>
+        </div>
+        <div class="col-md-2">
+            <div class="input-group form-outline">
+              <input type="number" class="form-control" id="validationAge" aria-describedby="inputGroupPrepend" name="edad" required />
+              <label for="validationAge" class="form-label">Edad</label>
+            </div>
+          </div>
+        <div class="col-md-6">
+          <div class="input-group form-outline">
+            <span class="input-group-text" id="inputGroupPrepend">@</span>
+            <input type="text" class="form-control" id="validationCustomUsername" aria-describedby="inputGroupPrepend" name="username" required />
+            <label for="validationCustomUsername" class="form-label">Nom. de Usuario</label>
+          </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-outline">
+              <input type="text" class="form-control" id="validationEmail" placeholder="Rupert" name="email" required />
+              <label for="validationEmail" class="form-label">Email</label>
+            </div>
+        </div>
+        <div class="col-md-12">
+          <div class="form-outline">
+            <input type="text" class="form-control" id="validationAvatar" name="avatar" required />
+            <label for="validationAvatar" class="form-label">Avatar</label>
+          </div>
+        </div>
+        <div class="col-md-12">
+            <div class="form-outline">
+                <input type="password" class="form-control" id="validationPassword" name="password" required />
+                <label for="validationPassword" class="form-label">Password</label>
+            </div>
+        </div>
+        <div class="col-12">
+          <button class="btn btn-primary" type="submit">Registrarse</button>
+        </div>
+      </form>
+    </div>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.0.1/mdb.min.js"></script>
+</body>
+</html>
