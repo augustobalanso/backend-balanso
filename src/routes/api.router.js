@@ -1,27 +1,20 @@
 import { Router } from "express";
+import { fork } from "child_process"
 const router = Router()
 
 router.get('/randoms', async (req, res) => {
+    
+    const { cant } = req.query
 
-    function randomNumberGenerator(min = 1, max = 1000) {
-        return Math.floor(Math.random() * (max - min + 1) + min);
-    }
+    const loopCycles = cant || 100000000
 
-    let trackingObject = {};
+    const forked  = fork("./src/services/api/randoms.api.js")
 
-    for (let i = 0; i < (req.query.cant || 100000000); i++) {
-        const randomNumber = randomNumberGenerator(); 
-        
-        if (trackingObject[randomNumber]) {
-            trackingObject[randomNumber]++;
-        } else {
-            trackingObject[randomNumber] = 1;
-        }
-    }
+    forked.on('message', (msg) => {
+        res.render('charts', {dataObject : msg.message})
+    })
 
-    console.log(trackingObject)
-
-    res.render('charts');
+    forked.send({message : loopCycles})
 });
 
 export default router

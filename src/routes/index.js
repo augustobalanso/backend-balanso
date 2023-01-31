@@ -64,7 +64,7 @@ router.get('/info', (_req, res) => {
         'launch args': parseArgs(process.argv.slice(2)),
         'platform': process.platform,
         'nodeVersion': process.version,
-        'memory': process.totalReservedMemory,
+        'memory (rss)': `${Math.round(process.memoryUsage().rss / 1024)} KB`,
         'executionPath': process.execPath,
         'processID': process.pid,
         'projectFolder': process.cwd(),
