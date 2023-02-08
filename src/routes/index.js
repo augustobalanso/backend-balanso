@@ -4,6 +4,7 @@ import { __dirname } from "../../app.js";
 import passport from "passport";
 import parseArgs from 'minimist'
 import apiRouter from './api.router.js'
+import os from 'os'
 
 const router = Router()
 
@@ -68,6 +69,7 @@ router.get('/info', (_req, res) => {
         'executionPath': process.execPath,
         'processID': process.pid,
         'projectFolder': process.cwd(),
+        'workingCores' : os.cpus().length
     });
   });
 
