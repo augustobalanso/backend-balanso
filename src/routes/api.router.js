@@ -4,7 +4,6 @@ import parseArgs from "minimist"
 const router = Router()
 
 router.get('/randoms', async (req, res) => {
-    
     const { cant } = req.query
 
     const launchParams = parseArgs(process.argv.slice(2))

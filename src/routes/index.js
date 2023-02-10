@@ -71,6 +71,6 @@ router.get('/info', (_req, res) => {
         'projectFolder': process.cwd(),
         'workingCores' : os.cpus().length
     });
-  });
+});
 
 export default router
