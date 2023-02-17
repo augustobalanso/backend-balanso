@@ -8,15 +8,18 @@ import { schema, normalize } from "normalizr";
 import { v4 as uuid } from "uuid";
 import parseArgs from "minimist"
 
-const PORT = parseArgs(process.argv.slice(2)).port || 8080
-const MODE = parseArgs(process.argv.slice(2)).mode || 8080
+console.log(process.env)
+
+const PORT = parseArgs(process.argv.slice(2)).port || process.env.PORT || 8080
+const MODE = parseArgs(process.argv.slice(2)).mode || 'fork'
+const SCRIPTPM = process.env.npm_lifecycle_event
 
 const mongoChatModel = mongooseChatConnection.model('chats', MessageSchema)
 
 if(MODE === 'cluster'){
     if(cluster.isPrimary){
         const cpus = os.cpus().length;
-        for (let i = 0; i < cpus/2; i++) {
+        for (let i = 0; i < 4; i++) {
             cluster.fork({ PORT: PORT + i });
         }
     } else {
@@ -24,7 +27,15 @@ if(MODE === 'cluster'){
         http.listen(workerPort, () => console.info(`Server workers up and running on port ${workerPort}`));
     }
 } else {
-    http.listen(PORT, () => console.info(`Server up and running on port ${PORT}`));
+    if(SCRIPTPM === 'start:forever'){
+        http.listen(PORT, () => console.info(`Server up and running with FOREVER on port ${PORT}`));
+    } else if(process.env.PM2_USAGE){
+        http.listen(PORT, () => console.info(`Server up and running with PM2 on port ${PORT}`));
+    } else if(process.env.PM2_USAGE || process.env.NODE_APP_INSTANCE){
+        http.listen(PORT, () => console.info(`Server up and running with PM2 CLUSTERMODE process manager on port ${PORT}`));
+    } else {
+        http.listen(PORT, () => console.info(`Server up and running with unknown process manager on port ${PORT}`));
+    }
 }
 
 const authorSchema = new schema.Entity('author',{}, { idAttribute: 'email'})

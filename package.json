@@ -2,12 +2,16 @@
   "name": "desafio10",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "server.js",
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js",
-    "start:dev": "nodemon server.js"
+    "start:dev": "nodemon server.js",
+    "start:forever": "forever start server.js --watch 8081 fork",
+    "start:pm2fork": "pm2 start server.js --watch -- --port=8081 --modo=fork",
+    "start:pm2cluster": "pm2 start server.js -i 4 --watch --env PORT=8081",
+    "start:nginx": "nginx server.js"
   },
   "keywords": [],
   "author": "",
